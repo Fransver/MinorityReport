@@ -1,23 +1,24 @@
 from bs4 import BeautifulSoup, SoupStrainer
 import requests
 from article import Article
-from date_collector import DateCollector
-import datetime
+from multiprocessing import Pool
 
 
-# TODO multithreading
+# TODO multiprocessing
 
 class NosScraper:
 
+    def __init__(self):
+        self.articles = []
+
     def scrape(self, dates, descr=True):
-        articles = []
 
         for date in dates:
             url = "https://nos.nl/nieuws/archief/{}-{}-{}".format(date.year, date.strftime('%m'), date.strftime('%d'))
             req = requests.get(url)
             soup = BeautifulSoup(req.content, 'html.parser')
 
-            parent = soup.find_all('li', class_='list-time__item')
+            # parent = soup.find_all('li', class_='list-time__item')
             # titles = []
             # urls = []
             # for p in parent:
@@ -27,9 +28,9 @@ class NosScraper:
             titles = soup.find_all('div', class_='list-time__title')
             urls = soup.find_all('a', class_='link-block')
 
-            for x in range(len(titles)):
-                title = titles[x].contents[0]
-                url = "".join(["https://www.nos.nl", urls[x].attrs['href']])
+            for i in range(len(titles)):
+                title = titles[i].contents[0]
+                url = "".join(["https://www.nos.nl", urls[i].attrs['href']])
 
                 if descr:
                     description = self.get_description(url)
@@ -37,19 +38,10 @@ class NosScraper:
                     description = ""
 
                 article = Article(title, url, date, description)
-                articles.append(article)
+                self.articles.append(article)
 
-        return articles
+        return self.articles
 
-
-    def get_urls(self, dates):
-        search_urls = []
-
-        for date in dates:
-            search_urls.append(
-                "https://nos.nl/nieuws/archief/{}-{}-{}".format(date.year, date.strftime('%m'), date.strftime('%d')))
-
-        return search_urls
 
     def get_description(self, url):
         req = requests.get(url)
