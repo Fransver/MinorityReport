@@ -19,8 +19,8 @@ if __name__ == '__main__':
         list_of_attribute_values = [article.title, article.description, article.url, article.date]
         list_of_lists.append(list_of_attribute_values)
 
-    df = pandas.DataFrame(data=list_of_lists, columns=['Title', 'Description', 'Url', 'Date'])
-    df.to_csv('CSV/Articles_dataframe.csv', index=False)
-
-    print(df)
+    # df = pandas.DataFrame(data=list_of_lists, columns=['Title', 'Description', 'Url', 'Date'])
+    # df.to_csv('CSV/Articles_dataframe.csv', index=False)
+    #
+    # print(df)
     print(f"\nThe duration of the scraping process was: {scraper_duration} seconds for {len(articles)} articles on {len(dates)} page.")

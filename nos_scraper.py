@@ -10,13 +10,14 @@ class NosScraper:
 
     def __init__(self):
         self.articles = []
+        self.req = requests
+        self.soup = BeautifulSoup
 
     def scrape(self, dates, descr=True):
 
         for date in dates:
             url = "https://nos.nl/nieuws/archief/{}-{}-{}".format(date.year, date.strftime('%m'), date.strftime('%d'))
-            req = requests.get(url)
-            soup = BeautifulSoup(req.content, 'html.parser')
+            soup = self.soup(self.req.get(url).content, 'html.parser')
 
             # parent = soup.find_all('li', class_='list-time__item')
             # titles = []
@@ -49,3 +50,6 @@ class NosScraper:
         description = soup.select_one('meta[name="description"]').attrs['content']
 
         return description
+
+    def check_if_field_is_empty(self):
+        pass
