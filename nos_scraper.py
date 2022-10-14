@@ -25,6 +25,7 @@ class NosScraper:
             # for p in parent:
             #     titles.extend(p.find_all('div', class_='list-time__title'))
             #     urls.extend(p.find_all('a', class_='link-block'))
+            # DELETE?
 
             titles = soup.find_all('div', class_='list-time__title')
             urls = soup.find_all('a', class_='link-block')
@@ -42,7 +43,6 @@ class NosScraper:
                 self.articles.append(article)
 
         return self.articles
-
 
     def get_description(self, url):
         req = requests.get(url)
