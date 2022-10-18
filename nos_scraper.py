@@ -39,7 +39,7 @@ class NosScraper:
                 else:
                     description = ""
 
-                article = Article(title, url, date, description)
+                article = Article(title, date, url, description)
                 self.articles.append(article)
 
         return self.articles

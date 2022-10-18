@@ -1,31 +1,36 @@
 import time
 import datetime
-import pandas as pd
-
+import pandas
+from data_controller import DataController
 from date_collector import DateCollector
 from nos_scraper import NosScraper
 
-# Implementaties uit main gehaald
-dates = DateCollector().get_range_of_dates(starting_date=datetime.date(2022, 10, 5))
-scraper = NosScraper()
-list_of_lists = []
-
 
 if __name__ == '__main__':
+    dates = DateCollector().get_range_of_dates(starting_date=datetime.date(2022, 10, 1))
     start_time = time.time()
-    articles = scraper.scrape(dates, descr=False)
+    scraper = NosScraper()
+    articles = scraper.scrape(dates, descr=True)
     end_time = time.time()
 
     scraper_duration = end_time - start_time
 
+    list_of_lists = []
+    article_dictionaries = []
+    dcontr = DataController()
+
     for article in articles:
+        #Om een Pandas dataframe te gebruiken, moeten de fields in een list geplaatst worden
         list_of_attribute_values = [article.title, article.description, article.url, article.date]
         list_of_lists.append(list_of_attribute_values)
-        print(f"title: {article.title}\nurl: {article.url}\ndescription: {article.description}\ndate: {article.date}\n")
+        #Om de articles naar de Database te uploaden, moeten de objecten naar dictionaries geconverteerd worden
+        article_dictionaries.append(article.to_dictionary())
 
-    # Werkt top! Had in 0.5 sec alle artikelen binnen en in map geschreven.
-    # df = pd.DataFrame(data=list_of_lists, columns=['Title', 'Description', 'Url', 'Date'])
+    dcontr.upload_list_of_articles_to_database(article_dictionaries)
+
+    # df = pandas.DataFrame(data=list_of_lists, columns=['Title', 'Description', 'Url', 'Date'])
     # df.to_csv('CSV/Articles_dataframe.csv', index=False)
+    #
+    # print(df)
 
     print(f"\nThe duration of the scraping process was: {scraper_duration} seconds for {len(articles)} articles on {len(dates)} page.")
-    print(pd.read_csv('CSV/Articles_dataframe.csv'))
