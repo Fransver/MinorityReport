@@ -1,9 +1,7 @@
 import requests
-import time
 import datetime
-import pandas as pd
 
-from date_collector import DateCollector
+from data.date_collector import DateCollector
 from article import Article
 from bs4 import BeautifulSoup
 

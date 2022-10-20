@@ -1,10 +1,9 @@
 import time
 import datetime
-import pandas as pd
 
-from date_collector import DateCollector
-from nos_scraper import NosScraper
-from cnn_scraper import CnnScraper
+from data.date_collector import DateCollector
+from scrapers.nos_scraper import NosScraper
+from scrapers.cnn_scraper import CnnScraper
 
 # ========================= Dates
 dates = DateCollector().get_range_of_dates(starting_date=datetime.date(2022, 10, 5))
