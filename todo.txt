@@ -1,0 +1,23 @@
+*. Puzzel verplicht attribuut doorgeven datum
+
+*. Interface maken scraper abstracte class + methods
+*. Scrapen testen voor duplicaten
+
+*. Modulaire opbouw toepassen uit SOLID.
+*. Id toevoegen aan article voor MongoDB
+*. Unit testen
+*. Td-idf methode maken op inhoud artikel
+*. Td-idf waarde meegeven aan Article class
+
+
+Tf-idf
+Scraper gaat aan het werk.
+List van articles zit in  memory inclusief volledige tekst, zonder de tf-idf waardes.
+Methode tf-idf itereert door de article-list om de waardes op te halen per artikel.
+Na berekenen waardes, slaat hij deze op in het field van article.
+Laatste stap is uploaden naar MongoDB (niet het volledige article, alleen de waarde)
+
+Scrapers
+
+
+
