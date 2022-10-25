@@ -1,6 +1,5 @@
 import requests
 import datetime
-import data.date_collector
 
 from abc import ABC, abstractmethod
 from bs4 import BeautifulSoup
@@ -12,27 +11,27 @@ from data.date_collector import DateCollector
 # De attributen kunnen per implementatie van de interface verschillen. Die moet je dus loskoppelen.
 # In de BeautifulParent heb ik nu aangegeven dat het een lijst moet zijn van dates. Zoals datacollector aangeeft.
 
-class Scraper(ABC):
+class Scraper(ABC):   # Hier de blauwdruk van de scraper maken waarin variabel datum-lijst nog optioneel is.
     @abstractmethod
-    def scrape(self, **kwargs):
+    def scrape(self, *args):
         pass
 
 
-class BeautifulParent(Scraper):
+class BeautifulParent(Scraper): # De Beutiful Soup scrapers gebruiken allemaal de soup en requests. Dus meegegeven.
     def __int__(self):
         super().__init__()
         self.soup = BeautifulSoup
         self.req = requests
 
-    def scrape(self, dates_scraper):
+    def scrape(self, dates_scraper):  # Hier al aangeven dat een Beuautiful Soup Scraper een lijst data moet hebben.
         pass
 
 
-class NewYorkTimesScraper(BeautifulParent):
+class NewYorkTimesScraper(BeautifulParent): # Hier met super alles overgedragen vanuit de soup parent.
     def __int__(self):
         super().__init__()
 
-    def scrape(self, dates_scraper, description=True):
+    def scrape(self, dates_scraper, description=True): # Hier eigenlijk pas een daadwerkelijke functie meegegegeven.
 
         for date in dates_scraper:
             print(date)
