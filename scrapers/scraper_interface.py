@@ -20,6 +20,7 @@ class Scraper(ABC):   # Hier de blauwdruk van de scraper maken waarin variabel d
 class BeautifulParent(Scraper): # De Beutiful Soup scrapers gebruiken allemaal de soup en requests. Dus meegegeven.
     def __int__(self):
         super().__init__()
+        self.articles = []
         self.soup = BeautifulSoup
         self.req = requests
 
