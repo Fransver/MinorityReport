@@ -1,8 +1,8 @@
 import requests
 import datetime
 
-from data.date_collector import DateCollector
-from article import Article
+from logical_layer.date_collector import DateCollector
+from data_layer.article import Article
 from bs4 import BeautifulSoup
 
 dates = DateCollector().get_range_of_dates(starting_date=datetime.date(2022, 10, 5))

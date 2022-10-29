@@ -1,7 +1,6 @@
-from bs4 import BeautifulSoup, SoupStrainer
+from bs4 import BeautifulSoup
 import requests
-from article import Article
-from multiprocessing import Pool
+from data_layer.article import Article
 
 
 # TODO multiprocessing

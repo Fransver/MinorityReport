@@ -19,14 +19,14 @@ ukrain_news = newsapi.get_everything(qintitle='Ukraine')
 # ================= Dataframes
 df_bitcoin = pd.DataFrame(data=bitcoin)  # Naar panda Data
 df_topus = pd.DataFrame(data=top_us)
-df_ukrain_today = pd.DataFrame(data=ukrain_news)
+df_ukrain_news = pd.read_json(ukrain_news)
 
 # ================== Json dumps
-ukrain_news_json = json.dumps(ukrain_news)
+
 
 if __name__ == '__main__':
     start_time = time.time()
-    print(ukrain_news_json)
+    print(ukrain_news)
     end_time = time.time()
     duration = end_time - start_time
     print(duration)

@@ -3,7 +3,7 @@ import datetime
 
 from abc import ABC, abstractmethod
 from bs4 import BeautifulSoup
-from data.date_collector import DateCollector
+from logical_layer.date_collector import DateCollector
 
 
 # De verplichting van data komt pas in de methode terug.
@@ -18,7 +18,7 @@ class Scraper(ABC):   # Hier de blauwdruk van de scraper maken waarin variabel d
 
 
 class BeautifulParent(Scraper): # De Beutiful Soup scrapers gebruiken allemaal de soup en requests. Dus meegegeven.
-    def __int__(self):
+    def __init__(self):
         super().__init__()
         self.articles = []
         self.soup = BeautifulSoup
@@ -29,7 +29,7 @@ class BeautifulParent(Scraper): # De Beutiful Soup scrapers gebruiken allemaal d
 
 
 class NewYorkTimesScraper(BeautifulParent): # Hier met super alles overgedragen vanuit de soup parent.
-    def __int__(self):
+    def __init__(self):
         super().__init__()
 
     def scrape(self, dates_scraper, description=True): # Hier eigenlijk pas een daadwerkelijke functie meegegegeven.
