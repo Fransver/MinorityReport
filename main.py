@@ -4,6 +4,7 @@ import datetime
 from logical_layer.date_collector import DateCollector
 from logical_layer.scrapers.nos_scraper import NosScraper
 from logical_layer.scrapers.cnn_scraper import CnnScraper
+from logical_layer.rss.nos_rssfeed import NosRssScraper
 from data_layer.data_controller import DataController
 
 # ========================= Dates
@@ -12,6 +13,7 @@ dates = DateCollector().get_range_of_dates(starting_date=datetime.date(2022, 10,
 # ========================= SCRAPERS
 scraper_nos = NosScraper()
 scraper_cnn = CnnScraper()
+scraper_rss_nos = NosRssScraper()
 
 # ========================== Lists
 list_of_lists = []
@@ -24,7 +26,7 @@ if __name__ == '__main__':
     start_time = time.time()
     # ===================================================== Keuze welke Scraper
     # articles = scraper_nos.scrape(dates, descr=False)  #NOS
-    articles = scraper_cnn.scrape(dates, descr=False)    #CNN
+    articles = scraper_nos.scrape(dates, descr=False)    #CNN
 
     end_time = time.time()
 
@@ -44,6 +46,6 @@ if __name__ == '__main__':
     print(f"\nThe duration of the scraping process was: {scraper_duration} seconds "
           f"for {len(articles)} articles on {len(dates)} page.")
 
-    database_control.upload_list_of_articles_to_database(mongo_upload_dict) # upload naar Mongo
+    # database_control.upload_list_of_articles_to_database(mongo_upload_dict) # upload naar Mongo
 
     # print(pd.read_csv('CSV/Articles_dataframe.csv'))

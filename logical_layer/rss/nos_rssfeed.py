@@ -1,20 +1,30 @@
 import datetime
-
 from logical_layer.scrapers.scraper_interface import BeautifulParent
+from data_layer.article import Article
 
-
-# ============== Lukt niet om Soup en Req te activeren.
 
 class NosRssScraper(BeautifulParent):
     def __init__(self):
         super().__init__()
-        self.url = "https://edition.cnn.com/articles/"
+        self.url = "https://feeds.nos.nl/nosnieuwsbinnenland/"
 
-    def scrape(self, dates_scraper):
-        soup = self.soup(self.req.get(self.url).content, 'html.parser')
-        titles = soup.find_all('h3', class_='cd__headline')
-        self.articles.append(titles)
+    def scrape(self, dates_scraper, descr=False):
+        soup = self.soup(self.req.get(self.url).content, 'lxml')
+        urls = soup.find_all('guid')
+        titles = soup.find_all('title')
+
         print(titles)
+
+        for i in range(len(titles)):
+            title = titles[i].text
+            url = urls[0].text # 1e artikel heeft geen url dus klopt niet in volgorde.
+            date = ''
+            descriptions = ''
+            article = Article(title, date, url, descriptions)
+            self.articles.append(article)
+            print(f"title: {article.title}\nurl: {article.url}\n"
+                  f"description: {article.description}\ndate: {article.date}\n")
+
         return self.articles
 
 
@@ -23,3 +33,4 @@ if __name__ == '__main__':
     today = datetime.date.today()
     scraper_rss = NosRssScraper()
     scraper_rss.scrape(today)
+
