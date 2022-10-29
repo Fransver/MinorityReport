@@ -1,8 +1,8 @@
 import pymongo
 import certifi
 
-client_willem = "mongodb+srv://willem:nos_scraper_test@cluster0.dgterps.mongodb.net/?retryWrites=true&w=majority"
-client_frans = 'mongodb+srv://fransver:minorityreport@cluster0.oahzdqm.mongodb.net/?retryWrites=true&w=majority'
+client_willem = "mongodb+srv://willem:<password>@cluster0.dgterps.mongodb.net/?retryWrites=true&w=majority"
+client_frans = 'mongodb+srv://fransver:<password>@cluster0.oahzdqm.mongodb.net/?retryWrites=true&w=majority'
 
 
 class DataController:
