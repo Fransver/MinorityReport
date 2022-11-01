@@ -4,29 +4,40 @@ import pandas as pd
 
 from newsapi import NewsApiClient  # Api direct vanaf documentatie
 
-newsapi = NewsApiClient(api_key='43136ce0aa7047fd83aa71a25633260f')
 
-# ================ Api Calls
-# to= data meegeven
-# q = onderwerp meegeven
-# qintitle = titel in artikel zoeken
+class NewsAPI:
+    def __init__(self):
+        self.client = NewsApiClient(api_key='43136ce0aa7047fd83aa71a25633260f')
 
-sources = newsapi.get_top_headlines(sources='bbc-news')  # BBC Top Artikelen
-bitcoin = newsapi.get_everything(q='bitcoin')  # Krijgt alles over geselecteerd onderwerp.
-top_us = newsapi.get_top_headlines(country="us")
-ukrain_news = newsapi.get_everything(qintitle='Ukraine')
+    def get_sources(self):
+        sources_newsapi = self.client.get_sources()
+        return sources_newsapi
+
+    def get_top_headlines(self):
+        headlines_newsapi = self.client.get_top_headlines()
+        return headlines_newsapi
+
+    def get_subject_news(self, subject):
+        subject_newsapi = self.client.get_everything(qintitle=f"{subject}")
+        return subject_newsapi
+
 
 # ================= Dataframes
-df_bitcoin = pd.DataFrame(data=bitcoin)  # Naar panda Data
-df_topus = pd.DataFrame(data=top_us)
-df_ukrain_news = pd.read_json(ukrain_news)
+# df_bitcoin = pd.DataFrame(data=bitcoin)  # Naar panda Data
+# df_topus = pd.DataFrame(data=top_us)
 
 # ================== Json dumps
 
 
 if __name__ == '__main__':
+    news_api = NewsAPI()
+
+    sources = news_api.get_sources()
+    headlines = news_api.get_top_headlines()
+    subject_news = news_api.get_subject_news("Ukraine")
+
     start_time = time.time()
-    print(ukrain_news)
+    print(sources)
     end_time = time.time()
     duration = end_time - start_time
     print(duration)
